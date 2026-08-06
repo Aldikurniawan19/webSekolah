@@ -69,38 +69,41 @@ export default function Footer() {
             <Link href="#" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Daftar Ulang SPMB</Link>
           </div>
 
-          {/* Kolom 4: Kontak Kami */}
-          <div className="md:col-span-4 flex flex-col gap-4 md:mt-2">
-            <h3 className="font-jakarta text-[16px] font-bold text-white mb-2">Kontak Kami</h3>
+          {/* Kolom 4: Kontak Kami & Lokasi Peta */}
+          <div className="md:col-span-4 flex flex-col gap-3 md:mt-2">
+            <h3 className="font-jakarta text-[16px] font-bold text-white mb-1">Kontak & Lokasi</h3>
             
             <div className="flex items-start gap-3">
-              <svg className="w-5 h-5 flex-shrink-0 text-tertiary-fixed-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 flex-shrink-0 text-tertiary-fixed-dim mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <span className="font-inter text-[14px] text-surface-variant/80 leading-snug">
-                Jl. Pahlawan No. 45 Muara Tebo,<br/>Kabupaten Tebo - Jambi, 37571
+              <span className="font-inter text-[13.5px] text-surface-variant/80 leading-snug">
+                Jl. Pahlawan No. 45 Muara Tebo, Kabupaten Tebo - Jambi, 37571
               </span>
             </div>
 
-            <div className="flex items-center gap-3 mt-1">
-              <svg className="w-5 h-5 flex-shrink-0 text-tertiary-fixed-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-              <span className="font-inter text-[14px] text-surface-variant/80">
-                (0744) XXXXXX
-              </span>
-            </div>
-
-            <div className="flex items-center gap-3 mt-1">
+            <div className="flex items-center gap-3">
               <svg className="w-5 h-5 flex-shrink-0 text-tertiary-fixed-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              <span className="font-inter text-[14px] text-surface-variant/80">
+              <span className="font-inter text-[13.5px] text-surface-variant/80">
                 info@sman2tebo.sch.id
               </span>
             </div>
-            
+
+            {/* Embedded Google Maps */}
+            <div className="w-full mt-2 rounded-xl overflow-hidden border border-white/15 shadow-md">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63820.352628934066!2d102.03065774863279!3d-1.312183999999992!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2ea85b59bd0319%3A0x95fa589dc03906a9!2sSMAN%2002%20Tebo!5e0!3m2!1sid!2sid!4v1786008882459!5m2!1sid!2sid" 
+                className="w-full h-44 rounded-xl opacity-90 hover:opacity-100 transition-opacity duration-300" 
+                style={{ border: 0 }} 
+                allowFullScreen 
+                loading="lazy" 
+                referrerPolicy="strict-origin-when-cross-origin"
+                title="Peta Lokasi SMAN 2 Tebo"
+              />
+            </div>
           </div>
         </div>
 

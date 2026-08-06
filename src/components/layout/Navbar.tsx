@@ -94,12 +94,12 @@ export default function Navbar() {
     <>
       <header
         ref={headerRef}
-        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 right-0 z-50 w-full transition-colors duration-300 ease-in-out py-3.5 md:py-4 ${
           scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-md py-3 md:py-3.5"
+            ? "bg-white/95 backdrop-blur-md shadow-md text-on-surface"
             : isHome
-            ? "bg-gradient-to-b from-black/60 via-black/25 to-transparent text-white py-4 md:py-5"
-            : "bg-white/85 backdrop-blur-md text-on-surface py-4 md:py-5"
+            ? "bg-gradient-to-b from-black/60 via-black/25 to-transparent text-white"
+            : "bg-white/85 backdrop-blur-md text-on-surface"
         }`}
       >
         <div className="flex justify-between items-center w-full px-4 sm:px-6 md:px-margin-x max-w-container-max mx-auto">
@@ -203,8 +203,12 @@ export default function Navbar() {
 
               <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
                 <div className="w-52 bg-white shadow-[0_10px_30px_rgba(11,42,91,0.12)] rounded-xl border border-gray-100 overflow-hidden flex flex-col py-1.5">
-                  <Link href="#" className="px-4 py-2.5 font-inter text-[13.5px] text-body-gray hover:bg-gray-50 hover:text-primary transition-colors">
-                    Kurikulum Kami
+                  <Link
+                    href="/akademik/kurikulum"
+                    className={getSubmenuLinkClass("/akademik/kurikulum")}
+                  >
+                    <span>Kurikulum Kami</span>
+                    {pathname === "/akademik/kurikulum" && <span className="w-1.5 h-1.5 rounded-full bg-primary" />}
                   </Link>
                   <Link href="#" className="px-4 py-2.5 font-inter text-[13.5px] text-body-gray hover:bg-gray-50 hover:text-primary transition-colors">
                     Mata Pelajaran
@@ -335,7 +339,7 @@ export default function Navbar() {
               </button>
               {openSubmenu === 'akademik' && (
                 <div className="pl-4 flex flex-col gap-2 py-2 bg-surface-container-low rounded-md mt-1">
-                  <Link href="#" onClick={() => setMobileMenuOpen(false)} className="text-xs font-inter text-body-gray hover:text-primary py-1">Kurikulum Kami</Link>
+                  <Link href="/akademik/kurikulum" onClick={() => setMobileMenuOpen(false)} className={`text-xs font-inter py-1 ${pathname === '/akademik/kurikulum' ? 'text-primary font-bold' : 'text-body-gray'}`}>Kurikulum Kami</Link>
                   <Link href="#" onClick={() => setMobileMenuOpen(false)} className="text-xs font-inter text-body-gray hover:text-primary py-1">Mata Pelajaran</Link>
                   <Link href="#" onClick={() => setMobileMenuOpen(false)} className="text-xs font-inter text-body-gray hover:text-primary py-1">Bimbingan Konseling</Link>
                 </div>
