@@ -1,6 +1,11 @@
+"use client";
+
 import React from "react";
+import { useScrollReveal } from "@/lib/useScrollReveal";
 
 export default function Hero() {
+  const [heroRef] = useScrollReveal({ variant: "fade-up", duration: 900 });
+
   return (
     <section className="relative w-full min-h-[560px] sm:min-h-[600px] md:min-h-[660px] pt-20 sm:pt-28 pb-32 sm:pb-36 md:pb-40 flex items-center bg-[#002256]">
       {/* Background Video & Dark Overlay */}
@@ -19,9 +24,9 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-container-max mx-auto px-4 sm:px-6 md:px-margin-x text-center md:text-left flex flex-col md:items-start items-center gap-6 sm:gap-8 animate-fade-in-up">
+      <div ref={heroRef} className="relative z-10 w-full max-w-container-max mx-auto px-4 sm:px-6 md:px-margin-x text-center md:text-left flex flex-col md:items-start items-center gap-6 sm:gap-8">
         <h1 className="font-jakarta text-[36px] sm:text-[52px] md:text-[56px] font-bold text-white max-w-3xl drop-shadow-lg leading-[1.2] tracking-[-0.02em]">
-          SMA Negeri 2 Tebo
+          <span className="text-[#f6bf22]">SMA Negeri 2</span> Tebo
         </h1>
         <p className="font-inter text-base sm:text-lg text-surface-container-low max-w-2xl leading-[1.7]">
           Mewujudkan generasi berprestasi, berkarakter, dan berdaya saing global melalui pendidikan berkualitas dan fasilitas modern.

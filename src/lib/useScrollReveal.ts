@@ -1,8 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState, RefObject } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-type AnimationVariant =
+// Register ScrollTrigger plugin on client side
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+export type AnimationVariant =
   | "fade-up"
   | "fade-down"
   | "fade-left"
@@ -13,7 +20,7 @@ type AnimationVariant =
   | "flip-up"
   | "slide-up";
 
-interface UseScrollRevealOptions {
+export interface UseScrollRevealOptions {
   threshold?: number;
   rootMargin?: string;
   once?: boolean;
@@ -23,19 +30,17 @@ interface UseScrollRevealOptions {
 }
 
 /**
- * Custom hook for scroll-triggered reveal animations.
- * Returns [ref, isVisible, animationStyle].
+ * GSAP ScrollTrigger Hook for Smooth Web Animations.
+ * Automatically handles triggers, hardware acceleration, and cleanup.
  */
 export function useScrollReveal<T extends HTMLElement = HTMLElement>(
   options: UseScrollRevealOptions = {}
 ): [RefObject<T | null>, boolean, React.CSSProperties] {
   const {
-    threshold = 0.12,
-    rootMargin = "0px 0px -40px 0px",
-    once = true,
     delay = 0,
-    duration = 700,
+    duration = 800,
     variant = "fade-up",
+    once = true,
   } = options;
 
   const ref = useRef<T | null>(null);
@@ -45,57 +50,75 @@ export function useScrollReveal<T extends HTMLElement = HTMLElement>(
     const el = ref.current;
     if (!el) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          if (once) observer.disconnect();
-        } else if (!once) {
-          setIsVisible(false);
+    gsap.registerPlugin(ScrollTrigger);
+
+    const durSec = duration / 1000;
+    const delaySec = delay / 1000;
+
+    let fromVars: gsap.TweenVars = { opacity: 0 };
+
+    switch (variant) {
+      case "fade-up":
+        fromVars = { opacity: 0, y: 45 };
+        break;
+      case "fade-down":
+        fromVars = { opacity: 0, y: -45 };
+        break;
+      case "fade-left":
+        fromVars = { opacity: 0, x: -50 };
+        break;
+      case "fade-right":
+        fromVars = { opacity: 0, x: 50 };
+        break;
+      case "fade":
+        fromVars = { opacity: 0 };
+        break;
+      case "zoom-in":
+        fromVars = { opacity: 0, scale: 0.85 };
+        break;
+      case "zoom-out":
+        fromVars = { opacity: 0, scale: 1.12 };
+        break;
+      case "flip-up":
+        fromVars = { opacity: 0, y: 40, rotationX: 20 };
+        break;
+      case "slide-up":
+        fromVars = { opacity: 0, y: 70 };
+        break;
+    }
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        el,
+        fromVars,
+        {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          scale: 1,
+          rotationX: 0,
+          duration: durSec,
+          delay: delaySec,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 88%",
+            toggleActions: once ? "play none none none" : "play reverse play reverse",
+            onEnter: () => setIsVisible(true),
+          },
         }
-      },
-      { threshold, rootMargin }
-    );
+      );
+    }, el);
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold, rootMargin, once]);
+    return () => ctx.revert();
+  }, [variant, delay, duration, once]);
 
-  // Build CSS transitions
-  const hiddenStyles: Record<AnimationVariant, React.CSSProperties> = {
-    "fade-up":    { opacity: 0, transform: "translateY(40px)" },
-    "fade-down":  { opacity: 0, transform: "translateY(-40px)" },
-    "fade-left":  { opacity: 0, transform: "translateX(-40px)" },
-    "fade-right": { opacity: 0, transform: "translateX(40px)" },
-    "fade":       { opacity: 0 },
-    "zoom-in":    { opacity: 0, transform: "scale(0.88)" },
-    "zoom-out":   { opacity: 0, transform: "scale(1.1)" },
-    "flip-up":    { opacity: 0, transform: "perspective(600px) rotateX(25deg) translateY(30px)" },
-    "slide-up":   { opacity: 0, transform: "translateY(60px)" },
-  };
-
-  const visibleStyle: React.CSSProperties = {
-    opacity: 1,
-    transform: "none",
-  };
-
-  const baseStyle: React.CSSProperties = {
-    transitionProperty: "opacity, transform",
-    transitionDuration: `${duration}ms`,
-    transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-    transitionDelay: `${delay}ms`,
-  };
-
-  const animationStyle: React.CSSProperties = {
-    ...baseStyle,
-    ...(isVisible ? visibleStyle : hiddenStyles[variant]),
-  };
-
-  return [ref, isVisible, animationStyle];
+  // Return empty style object so components passing style={style} remain compatible
+  return [ref, isVisible, {}];
 }
 
 /**
- * Staggered children helper – returns a delay (ms) for each index.
+ * Helper to generate staggered delay in ms
  */
 export function staggerDelay(index: number, base = 100, step = 80): number {
   return base + index * step;
