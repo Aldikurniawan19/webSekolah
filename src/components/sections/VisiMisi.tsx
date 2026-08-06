@@ -298,10 +298,10 @@ export default function VisiMisi() {
               The Journey of Misi
             </div>
             <h3 className="text-3xl font-extrabold font-jakarta text-[#003883] tracking-tight">
-              Rekam Langkah Misi SMAN 2 Tebo
+               Misi SMAN 2 Tebo
             </h3>
             <p className="font-inter text-slate-500 text-sm mt-2">
-              12 komitmen misi terarah yang mengalir secara konsisten untuk mewujudkan visi generasi emas.
+              12 komitmen misi untuk mewujudkan visi generasi emas.
             </p>
           </div>
 
