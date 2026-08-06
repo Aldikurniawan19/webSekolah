@@ -1,5 +1,4 @@
 import Hero from "@/components/sections/Hero";
-import StatsCard from "@/components/sections/StatsCard";
 import Principal from "@/components/sections/Principal";
 import VisiMisi from "@/components/sections/VisiMisi";
 import Activities from "@/components/sections/Activities";
@@ -11,7 +10,6 @@ export default function Home() {
     <>
       <Hero />
       <div className="relative w-full bg-surface">
-        <StatsCard />
         <Principal />
         <VisiMisi />
       </div>
