@@ -33,7 +33,7 @@ export interface UseScrollRevealOptions {
  * GSAP ScrollTrigger Hook for Smooth Web Animations.
  * Automatically handles triggers, hardware acceleration, and cleanup.
  */
-export function useScrollReveal<T extends HTMLElement = HTMLElement>(
+export function useScrollReveal<T extends HTMLElement = any>(
   options: UseScrollRevealOptions = {}
 ): [RefObject<T | null>, boolean, React.CSSProperties] {
   const {
