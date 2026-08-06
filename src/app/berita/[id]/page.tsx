@@ -57,20 +57,20 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ id:
   const news = newsDatabase[id] || fallbackNews;
 
   return (
-    <div className="w-full bg-[#f8fafc] py-8 md:py-12 animate-fade-in min-h-screen">
-      <div className="max-w-container-max mx-auto px-margin-x">
+    <div className="w-full bg-[#f8fafc] py-5 sm:py-8 md:py-12 animate-fade-in min-h-screen">
+      <div className="max-w-container-max mx-auto px-4 sm:px-6 md:px-margin-x">
         
         {/* Transparent Minimal Breadcrumb Navigation with Lucide Icons */}
-        <nav aria-label="Breadcrumb" className="mb-6">
-          <ol className="flex items-center gap-2 text-[14.5px] text-body-gray font-inter flex-wrap">
+        <nav aria-label="Breadcrumb" className="mb-4 sm:mb-6">
+          <ol className="flex items-center gap-1.5 sm:gap-2 text-[12.5px] sm:text-[14.5px] text-body-gray font-inter flex-wrap">
             <li className="inline-flex items-center">
-              <Link href="/" className="inline-flex items-center gap-1.5 text-gray-700 hover:text-primary transition-colors font-medium">
-                <Home className="w-4 h-4 text-primary" />
+              <Link href="/" className="inline-flex items-center gap-1 sm:gap-1.5 text-gray-700 hover:text-primary transition-colors font-medium">
+                <Home className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
                 Beranda
               </Link>
             </li>
             <li>
-              <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+              <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gray-400" />
             </li>
             <li>
               <Link href="/berita" className="text-gray-700 hover:text-primary transition-colors font-medium">
@@ -78,62 +78,62 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ id:
               </Link>
             </li>
             <li>
-              <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+              <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gray-400" />
             </li>
-            <li className="text-gray-600 font-medium truncate max-w-xs sm:max-w-sm md:max-w-md">
+            <li className="text-gray-600 font-medium truncate max-w-[140px] sm:max-w-xs md:max-w-md">
               {news.title}
             </li>
           </ol>
         </nav>
 
         {/* Main Article Container Card */}
-        <article className="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-12">
+        <article className="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-8 md:p-12">
           
           {/* Header Badge & Meta Row */}
-          <div className="flex flex-wrap items-center gap-4 mb-4">
-            <span className="bg-primary text-white font-bold text-[11px] tracking-wide px-3 py-1 rounded-md uppercase shadow-sm">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+            <span className="bg-primary text-white font-bold text-[10px] sm:text-[11px] tracking-wide px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md uppercase shadow-sm">
               {news.category}
             </span>
-            <div className="flex items-center gap-1.5 text-[12px] text-body-gray font-inter">
-              <Clock className="w-4 h-4 text-gray-400" />
+            <div className="flex items-center gap-1.5 text-[11px] sm:text-[12px] text-body-gray font-inter">
+              <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400" />
               {news.date}
             </div>
           </div>
 
           {/* Article Title */}
-          <h1 className="font-jakarta text-[28px] md:text-[36px] font-bold text-[#0f172a] leading-[1.25] mb-4">
+          <h1 className="font-jakarta text-[20px] sm:text-[28px] md:text-[36px] font-bold text-[#0f172a] leading-[1.3] md:leading-[1.25] mb-4">
             {news.title}
           </h1>
 
           {/* Author & Views Info */}
-          <div className="flex items-center gap-4 pb-6 border-b border-gray-100 text-[13px] text-body-gray font-inter mb-6">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 pb-4 sm:pb-6 border-b border-gray-100 text-[12px] sm:text-[13px] text-body-gray font-inter mb-6">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs">
-                <User className="w-3.5 h-3.5 text-primary" />
+              <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs">
+                <User className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary" />
               </div>
               <span>Oleh : <strong className="text-on-surface">{news.author}</strong></span>
             </div>
             <span className="text-gray-300">|</span>
             <div className="flex items-center gap-1.5">
-              <Eye className="w-4 h-4 text-gray-400" />
+              <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400" />
               <span>{news.views} kali dibaca</span>
             </div>
           </div>
 
           {/* Featured Article Image */}
-          <div className="w-full rounded-xl overflow-hidden mb-8 shadow-sm">
+          <div className="w-full rounded-lg sm:rounded-xl overflow-hidden mb-6 sm:mb-8 shadow-sm">
             <img 
               src={news.image} 
               alt={news.title} 
-              className="w-full h-auto object-cover max-h-[500px]"
+              className="w-full h-auto object-cover max-h-[350px] sm:max-h-[500px]"
             />
           </div>
 
           {/* Article Body Content */}
-          <div className="font-inter text-[15px] md:text-[16px] text-[#334155] leading-[1.8] flex flex-col gap-6">
+          <div className="font-inter text-[14.5px] sm:text-[15px] md:text-[16px] text-[#334155] leading-[1.8] flex flex-col gap-5 sm:gap-6">
             
             {/* Bold Lead Paragraph */}
-            <p className="font-medium text-[16px] md:text-[17px] text-[#1e293b] leading-[1.7]">
+            <p className="font-medium text-[15.5px] sm:text-[16px] md:text-[17px] text-[#1e293b] leading-[1.7]">
               {news.introText}
             </p>
 
@@ -142,12 +142,12 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ id:
             </p>
 
             {/* Subheading */}
-            <h2 className="font-jakarta font-bold text-[18px] text-[#0f172a] mt-2">
+            <h2 className="font-jakarta font-bold text-[16.5px] sm:text-[18px] text-[#0f172a] mt-2">
               {news.sectionTitle}
             </h2>
 
             {/* List of Highlights */}
-            <ul className="flex flex-col gap-4 list-disc pl-5">
+            <ul className="flex flex-col gap-3 sm:gap-4 list-disc pl-4 sm:pl-5">
               {news.highlights.map((item, idx) => (
                 <li key={idx} className="pl-1">
                   <strong className="text-[#0f172a] font-bold">{item.label}: </strong>
@@ -162,12 +162,12 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ id:
           </div>
 
           {/* Footer Tags & Social Share Buttons */}
-          <div className="mt-10 pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div className="mt-8 sm:mt-10 pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             
             {/* Hashtag Badges */}
             <div className="flex flex-wrap gap-2">
               {news.tags.map((tag, idx) => (
-                <span key={idx} className="bg-gray-100 text-gray-600 font-medium text-[12px] px-3 py-1 rounded-md">
+                <span key={idx} className="bg-gray-100 text-gray-600 font-medium text-[11.5px] sm:text-[12px] px-2.5 sm:px-3 py-1 rounded-md">
                   {tag}
                 </span>
               ))}
@@ -181,25 +181,25 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ id:
                 <a 
                   href="#" 
                   title="Bagikan ke Facebook"
-                  className="w-9 h-9 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-xs"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-xs"
                 >
-                  <Facebook className="w-4 h-4" />
+                  <Facebook className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </a>
                 {/* Twitter / X */}
                 <a 
                   href="#" 
                   title="Bagikan ke Twitter / X"
-                  className="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-xs"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black text-white flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-xs"
                 >
-                  <Twitter className="w-4 h-4" />
+                  <Twitter className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </a>
                 {/* WhatsApp */}
                 <a 
                   href="#" 
                   title="Bagikan ke WhatsApp"
-                  className="w-9 h-9 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-xs"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-xs"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </a>
               </div>
             </div>

@@ -83,8 +83,8 @@ const newsArchiveData = [
 
 export default function BeritaPage() {
   return (
-    <div className="w-full bg-[#f8fafc] py-16 animate-fade-in min-h-screen">
-      <div className="max-w-container-max mx-auto px-margin-x">
+    <div className="w-full bg-[#f8fafc] py-8 sm:py-12 md:py-16 animate-fade-in min-h-screen">
+      <div className="max-w-container-max mx-auto px-4 sm:px-6 md:px-margin-x">
         
         {/* Header Title Section (Exactly matching screenshot) */}
         <div className="text-center max-w-3xl mx-auto mb-14">
