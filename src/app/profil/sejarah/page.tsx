@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useScrollReveal } from "@/lib/useScrollReveal";
 import Image from "next/image";
 
 interface Principal {
@@ -59,6 +60,9 @@ const principalsData: Principal[] = [
 
 export default function SejarahSingkatPage() {
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
+  const [headerRef, , headerStyle] = useScrollReveal({ variant: "fade-up", duration: 700 });
+  const [articleRef, , articleStyle] = useScrollReveal({ variant: "zoom-in", duration: 800, delay: 100 });
+  const [kepsekRef, , kepsekStyle] = useScrollReveal({ variant: "fade-up", duration: 700, delay: 80 });
 
   const handleImageError = (id: number) => {
     setImageErrors((prev) => ({ ...prev, [id]: true }));
@@ -69,7 +73,7 @@ export default function SejarahSingkatPage() {
       <div className="max-w-7xl mx-auto">
         
         {/* Header Badge & Page Title */}
-        <div className="flex flex-col items-center text-center mb-8">
+        <div ref={headerRef} style={headerStyle} className="flex flex-col items-center text-center mb-8">
           <div className="flex flex-col items-center mb-2">
             <span className="w-10 h-[3px] bg-[#f6bf22] mb-2 rounded-full"></span>
             <span className="text-[11px] sm:text-[12px] font-bold uppercase tracking-widest text-[#f6bf22]">
@@ -82,7 +86,7 @@ export default function SejarahSingkatPage() {
         </div>
 
         {/* Article Box Container */}
-        <div className="max-w-4xl mx-auto bg-white rounded-2xl p-6 sm:p-10 md:p-14 shadow-[0_4px_25px_rgba(0,0,0,0.03)] border border-gray-100 mb-16">
+        <div ref={articleRef} style={articleStyle} className="max-w-4xl mx-auto bg-white rounded-2xl p-6 sm:p-10 md:p-14 shadow-[0_4px_25px_rgba(0,0,0,0.03)] border border-gray-100 mb-16">
           <article className="font-inter text-[#475569] leading-relaxed md:leading-[1.85] text-[15px] sm:text-[16px] text-justify space-y-6">
             <p>
               SMA Negeri 2 Tebo, yang beralamat di Jl. Lintas Tebo-Bungo, lahir pada tanggal 9 November 1983. 
@@ -129,7 +133,7 @@ export default function SejarahSingkatPage() {
         </div>
 
         {/* Section: Pergantian Kepala Sekolah */}
-        <div className="mt-16 mb-8">
+        <div ref={kepsekRef} style={kepsekStyle} className="mt-16 mb-8">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <h2 className="text-2xl sm:text-3xl font-bold font-jakarta text-[#181c1f] mb-3">
               Pergantian Kepala Sekolah

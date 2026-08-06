@@ -1,12 +1,19 @@
+"use client";
+
 import React from "react";
+import { useScrollReveal, staggerDelay } from "@/lib/useScrollReveal";
 
 export default function Principal() {
+  const [sectionRef, , sectionStyle] = useScrollReveal({ variant: "fade", duration: 600 });
+  const [imgRef, , imgStyle] = useScrollReveal({ variant: "fade-left", duration: 800, delay: 100 });
+  const [textRef, , textStyle] = useScrollReveal({ variant: "fade-right", duration: 800, delay: 200 });
+
   return (
-    <section className="w-full pt-10 md:pt-14 pb-section-v-padding bg-surface">
+    <section ref={sectionRef} style={sectionStyle} className="w-full pt-10 md:pt-14 pb-section-v-padding bg-surface">
       <div className="max-w-container-max mx-auto px-margin-x grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
         
         {/* Image with decorative offset stack effect */}
-        <div className="col-span-1 md:col-span-5 relative mb-12 md:mb-0 group cursor-pointer">
+        <div ref={imgRef} style={imgStyle} className="col-span-1 md:col-span-5 relative mb-12 md:mb-0 group cursor-pointer">
           {/* Offset Box Effect */}
           <div className="absolute top-4 left-4 w-full h-full bg-surface-container-high rounded-lg z-0 hidden md:block transition-all duration-300 group-hover:top-6 group-hover:left-6"></div>
           
@@ -23,7 +30,7 @@ export default function Principal() {
         </div>
 
         {/* Text Content */}
-        <div className="col-span-1 md:col-span-6 md:col-start-7 flex flex-col gap-6">
+        <div ref={textRef} style={textStyle} className="col-span-1 md:col-span-6 md:col-start-7 flex flex-col gap-6">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-1 h-5 bg-primary rounded-full"></div>
             <span className="font-bold text-[13px] tracking-widest text-primary uppercase">

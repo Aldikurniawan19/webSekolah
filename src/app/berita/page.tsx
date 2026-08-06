@@ -1,10 +1,10 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { useScrollReveal, staggerDelay } from "@/lib/useScrollReveal";
 
-export const metadata = {
-  title: "Berita & Informasi - SMA Negeri 2 Tebo",
-  description: "Ikuti terus perkembangan terbaru, prestasi membanggakan, dan beragam aktivitas positif dari SMA Negeri 2 Tebo.",
-};
+
 
 const newsArchiveData = [
   {
@@ -81,13 +81,76 @@ const newsArchiveData = [
   }
 ];
 
+function NewsCard({ item, delay }: { item: typeof newsArchiveData[0]; delay: number }) {
+  const [ref, , style] = useScrollReveal<HTMLAnchorElement>({ variant: "fade-up", duration: 650, delay });
+  return (
+    <Link
+      ref={ref}
+      style={style}
+      key={item.id}
+      href={`/berita/${item.id}`}
+      className="group bg-white rounded-lg border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col cursor-pointer"
+    >
+      {/* Card Image */}
+      <div className="relative w-full h-48 bg-gray-100 overflow-hidden">
+        <img
+          src={item.image}
+          alt={item.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+        {/* Category Badge */}
+        <div className="absolute top-3 left-3 bg-primary text-white font-bold text-[11px] tracking-wide px-3 py-1 rounded-md uppercase shadow-sm">
+          {item.category}
+        </div>
+      </div>
+
+      {/* Card Body */}
+      <div className="p-5 flex flex-col flex-grow">
+        {/* Meta Row: Date & Author */}
+        <div className="flex items-center gap-3 text-[12px] text-gray-500 font-inter mb-3">
+          <div className="flex items-center gap-1">
+            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            {item.date}
+          </div>
+          <div className="flex items-center gap-1">
+            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            {item.author}
+          </div>
+        </div>
+
+        {/* Title */}
+        <h3 className="font-jakarta font-bold text-[16px] text-[#0f172a] mb-2.5 group-hover:text-primary transition-colors leading-[1.4] line-clamp-2">
+          {item.title}
+        </h3>
+
+        {/* Short Description */}
+        <p className="font-inter text-[13px] text-body-gray leading-[1.6] line-clamp-2 mb-4">
+          {item.description}
+        </p>
+
+        {/* Footer Link */}
+        <div className="mt-auto pt-3 border-t border-gray-100 flex items-center text-primary font-semibold text-[13px] group-hover:underline gap-1">
+          Baca Selengkapnya
+          <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 export default function BeritaPage() {
+  const [headerRef, , headerStyle] = useScrollReveal({ variant: "fade-up", duration: 700 });
+  const [btnRef, , btnStyle] = useScrollReveal({ variant: "fade-up", duration: 700, delay: 200 });
   return (
     <div className="w-full bg-[#f8fafc] py-8 sm:py-12 md:py-16 animate-fade-in min-h-screen">
       <div className="max-w-container-max mx-auto px-4 sm:px-6 md:px-margin-x">
         
         {/* Header Title Section (Exactly matching screenshot) */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <div ref={headerRef} style={headerStyle} className="text-center max-w-3xl mx-auto mb-14">
           <h1 className="font-jakarta text-[38px] md:text-[44px] font-bold text-[#0f172a] mb-4 tracking-tight">
             Berita & Informasi
           </h1>
@@ -99,65 +162,13 @@ export default function BeritaPage() {
 
         {/* Grid of 4 Cards (Matching screenshot layout) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {newsArchiveData.map((item) => (
-            <Link 
-              key={item.id} 
-              href={`/berita/${item.id}`}
-              className="group bg-white rounded-lg border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col cursor-pointer"
-            >
-              {/* Card Image */}
-              <div className="relative w-full h-48 bg-gray-100 overflow-hidden">
-                <img 
-                  src={item.image} 
-                  alt={item.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                {/* Category Badge */}
-                <div className="absolute top-3 left-3 bg-primary text-white font-bold text-[11px] tracking-wide px-3 py-1 rounded-md uppercase shadow-sm">
-                  {item.category}
-                </div>
-              </div>
-
-              {/* Card Body */}
-              <div className="p-5 flex flex-col flex-grow">
-                {/* Meta Row: Date & Author */}
-                <div className="flex items-center gap-3 text-[12px] text-gray-500 font-inter mb-3">
-                  <div className="flex items-center gap-1">
-                    <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    {item.date}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                    {item.author}
-                  </div>
-                </div>
-
-                {/* Title */}
-                <h3 className="font-jakarta font-bold text-[16px] text-[#0f172a] mb-2.5 group-hover:text-primary transition-colors leading-[1.4] line-clamp-2">
-                  {item.title}
-                </h3>
-
-                {/* Short Description */}
-                <p className="font-inter text-[13px] text-body-gray leading-[1.6] line-clamp-2 mb-4">
-                  {item.description}
-                </p>
-
-                {/* Footer Link: Baca Selengkapnya */}
-                <div className="mt-auto pt-3 border-t border-gray-100 flex items-center text-primary font-semibold text-[13px] group-hover:underline gap-1">
-                  Baca Selengkapnya
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </div>
-              </div>
-            </Link>
+          {newsArchiveData.map((item, i) => (
+            <NewsCard key={item.id} item={item} delay={staggerDelay(i, 60, 70)} />
           ))}
         </div>
 
         {/* Back to Home Button */}
-        <div className="mt-14 flex justify-center">
+        <div ref={btnRef} style={btnStyle} className="mt-14 flex justify-center">
           <Link 
             href="/" 
             className="inline-flex items-center gap-2 border-2 border-primary text-primary font-semibold text-[14px] px-8 py-3 rounded-md hover:bg-primary hover:text-white transition-all shadow-sm active:scale-95"

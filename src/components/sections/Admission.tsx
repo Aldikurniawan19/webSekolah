@@ -1,9 +1,15 @@
+"use client";
+
 import React from "react";
+import { useScrollReveal } from "@/lib/useScrollReveal";
 
 export default function Admission() {
+  const [textRef, , textStyle] = useScrollReveal({ variant: "fade-left", duration: 800, delay: 100 });
+  const [btnRef, , btnStyle] = useScrollReveal({ variant: "fade-right", duration: 800, delay: 250 });
+
   return (
     <section className="relative w-full py-section-v-padding overflow-hidden">
-      {/* Background Image with Overlay[cite: 1] */}
+      {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img 
           alt="PPDB Background" 
@@ -17,7 +23,7 @@ export default function Admission() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           
           {/* Text Content */}
-          <div className="max-w-3xl">
+          <div ref={textRef} style={textStyle} className="max-w-3xl">
             <div className="inline-block bg-primary text-white font-bold text-[12px] tracking-wider uppercase px-3.5 py-1.5 rounded-md shadow-sm mb-6">
               Portal Pendaftaran
             </div>
@@ -31,10 +37,9 @@ export default function Admission() {
           </div>
           
           {/* CTA Button */}
-          <div className="flex-shrink-0">
+          <div ref={btnRef} style={btnStyle} className="flex-shrink-0">
             <a href="#" className="group inline-flex items-center gap-2 bg-tertiary-fixed-dim text-on-tertiary-fixed font-semibold text-[15px] px-8 py-5 rounded-md hover:bg-[#e0ad1b] hover:-translate-y-0.5 active:scale-95 transition-all duration-300 shadow-lg">
               Masuk Portal SPMB
-              {/* SVG Arrow Icon */}
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>

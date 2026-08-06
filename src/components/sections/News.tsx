@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { useScrollReveal } from "@/lib/useScrollReveal";
 
 // Data Berita Utama (Kiri)
 const featuredNews = {
@@ -36,15 +39,49 @@ const sideNewsList = [
   }
 ];
 
+function SideNewsItem({ news, delay }: { news: typeof sideNewsList[0]; delay: number }) {
+  const [ref, , style] = useScrollReveal<HTMLAnchorElement>({ variant: "fade-right", duration: 650, delay });
+  return (
+    <Link ref={ref} style={style} key={news.id} href="/berita/1" className="flex gap-5 group cursor-pointer py-6 first:pt-0 last:pb-0">
+      {/* Thumbnail */}
+      <div className="relative w-40 h-28 flex-shrink-0 bg-gray-100 overflow-hidden rounded-md">
+        <img
+          src={news.image}
+          alt={news.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+      </div>
+      {/* Content */}
+      <div className="flex flex-col justify-start">
+        <span className="bg-primary/10 text-primary font-bold text-[11px] tracking-wider uppercase px-2.5 py-0.5 rounded-md inline-block w-fit mb-1.5">
+          {news.category}
+        </span>
+        <h4 className="font-jakarta font-bold text-[16px] text-on-surface group-hover:text-primary transition-colors line-clamp-3 leading-[1.4] mb-2">
+          {news.title}
+        </h4>
+        <div className="flex items-center gap-1.5 text-[12px] text-body-gray font-inter mt-auto">
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          {news.timeAgo}
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 export default function News() {
+  const [headerRef, , headerStyle] = useScrollReveal({ variant: "fade-up", duration: 700 });
+  const [featuredRef, , featuredStyle] = useScrollReveal({ variant: "fade-left", duration: 800, delay: 150 });
+  const [btnRef, , btnStyle] = useScrollReveal({ variant: "fade-up", duration: 700, delay: 400 });
+
   return (
     <section className="w-full py-section-v-padding bg-white">
       <div className="max-w-container-max mx-auto px-margin-x">
         
-        {/* Header Section as per design */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
+        {/* Header Section */}
+        <div ref={headerRef} style={headerStyle} className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
           <div>
-            {/* Eyebrow Label with left bar */}
             <div className="flex items-center gap-2 mb-3">
               <div className="w-1 h-5 bg-primary rounded-full"></div>
               <span className="font-bold text-[13px] tracking-widest text-primary uppercase">
@@ -52,7 +89,7 @@ export default function News() {
               </span>
             </div>
             <h2 className="font-jakarta text-[32px] font-bold text-on-surface mb-2 leading-tight">
-              Berita & Prestasi Terkini
+              Berita &amp; Prestasi Terkini
             </h2>
             <p className="font-inter text-[15px] text-body-gray">
               Informasi terkini dari dunia pendidikan dan pembaruan prestasi siswa SMA Negeri 2 Tebo.
@@ -68,24 +105,22 @@ export default function News() {
         {/* Horizontal Divider Below Header */}
         <hr className="border-gray-200 mb-8" />
 
-        {/* 55/45 Asymmetric Layout Grid (7 cols left, 5 cols right) */}
+        {/* 55/45 Asymmetric Layout Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           
-          {/* KIRI: Featured News (7 cols) */}
-          <Link href="/berita/1" className="lg:col-span-7 group cursor-pointer flex flex-col">
+          {/* KIRI: Featured News */}
+          <Link ref={featuredRef} style={featuredStyle} href="/berita/1" className="lg:col-span-7 group cursor-pointer flex flex-col">
             <div className="relative w-full aspect-[16/9] mb-5 bg-gray-100 overflow-hidden">
               <img 
                 src={featuredNews.image}
                 alt={featuredNews.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
               />
-              {/* Badge SMANDA JUARA */}
               <div className="absolute top-6 left-0 bg-primary text-white font-bold text-[12px] tracking-wide px-4 py-1.5 rounded-r-md uppercase shadow-sm">
                 {featuredNews.category}
               </div>
             </div>
             
-            {/* Meta Info (Clock & User) */}
             <div className="flex items-center gap-5 text-[13px] text-body-gray mb-3 font-inter">
               <div className="flex items-center gap-1.5">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,41 +144,10 @@ export default function News() {
             </p>
           </Link>
 
-          {/* KANAN: List of 3 smaller news items (5 cols) */}
-          {/* Menggunakan divide-y untuk border bawah antar item secara otomatis */}
+          {/* KANAN: List of 3 smaller news items */}
           <div className="lg:col-span-5 flex flex-col divide-y divide-gray-200">
-            {sideNewsList.map((news) => (
-              <Link key={news.id} href="/berita/1" className="flex gap-5 group cursor-pointer py-6 first:pt-0 last:pb-0">
-                
-                {/* Thumbnail */}
-                <div className="relative w-40 h-28 flex-shrink-0 bg-gray-100 overflow-hidden rounded-md">
-                  <img 
-                    src={news.image}
-                    alt={news.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                  />
-                </div>
-                
-                {/* Content */}
-                <div className="flex flex-col justify-start">
-                  <span className="bg-primary/10 text-primary font-bold text-[11px] tracking-wider uppercase px-2.5 py-0.5 rounded-md inline-block w-fit mb-1.5">
-                    {news.category}
-                  </span>
-                  
-                  <h4 className="font-jakarta font-bold text-[16px] text-on-surface group-hover:text-primary transition-colors line-clamp-3 leading-[1.4] mb-2">
-                    {news.title}
-                  </h4>
-                  
-                  {/* Meta Info (Clock) */}
-                  <div className="flex items-center gap-1.5 text-[12px] text-body-gray font-inter mt-auto">
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    {news.timeAgo}
-                  </div>
-                </div>
-                
-              </Link>
+            {sideNewsList.map((news, i) => (
+              <SideNewsItem key={news.id} news={news} delay={150 + i * 100} />
             ))}
           </div>
 
@@ -151,7 +155,7 @@ export default function News() {
 
         {/* Divider & Button Center Bottom */}
         <hr className="border-gray-200 mt-6 mb-8" />
-        <div className="flex justify-center">
+        <div ref={btnRef} style={btnStyle} className="flex justify-center">
           <Link href="/berita" className="inline-block border-2 border-tertiary-fixed-dim text-on-surface font-semibold text-[15px] px-10 py-3 rounded-md hover:bg-tertiary-fixed-dim hover:text-on-tertiary-fixed hover:-translate-y-0.5 active:scale-95 transition-all duration-300 shadow-sm">
             Lihat Semua Berita
           </Link>

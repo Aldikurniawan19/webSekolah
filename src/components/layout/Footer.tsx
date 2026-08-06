@@ -1,9 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useScrollReveal } from "@/lib/useScrollReveal";
 
 export default function Footer() {
+  const [ref, , style] = useScrollReveal({ variant: "fade-up", duration: 800, threshold: 0.05 });
   return (
-    <footer className="bg-[#111827] text-surface-variant w-full pt-16 pb-8 px-margin-x mt-auto">
+    <footer ref={ref} style={style} className="bg-[#111827] text-surface-variant w-full pt-16 pb-8 px-margin-x mt-auto">
       <div className="max-w-container-max mx-auto">
         
         {/* Main Footer Content - 4 Columns */}
