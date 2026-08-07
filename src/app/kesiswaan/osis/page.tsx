@@ -311,41 +311,65 @@ export default function OsisPage() {
             {executiveOfficers.map((officer, idx) => (
               <div
                 key={idx}
-                className="group bg-white rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_30px_rgba(0,56,131,0.08)] hover:border-[#003883]/20 transition-all duration-300 overflow-hidden flex flex-col justify-between"
+                className="group relative h-[380px] sm:h-[420px] rounded-2xl overflow-hidden shadow-md border border-slate-100 hover:shadow-2xl transition-all duration-500"
               >
-                <div>
-                  <div className="relative h-56 bg-slate-100 overflow-hidden">
-                    <img
-                      src={officer.avatar}
-                      alt={officer.name}
-                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
-                    <div className="absolute bottom-3 left-4 right-4 text-white">
-                      <span className="px-2.5 py-0.5 rounded-full bg-[#003883] text-white font-bold text-[10px] uppercase inline-block mb-1 border border-white/20">
-                        {officer.role}
-                      </span>
-                      <h3 className="text-base font-bold font-jakarta leading-tight">
-                        {officer.name}
-                      </h3>
-                      <p className="text-xs text-blue-200 font-inter">{officer.classGrade}</p>
-                    </div>
-                  </div>
+                {/* Full-Bleed Background Photo */}
+                <img
+                  src={officer.avatar}
+                  alt={officer.name}
+                  className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out"
+                />
 
-                  <div className="p-4 font-inter text-xs text-slate-600">
-                    <p className="italic text-slate-500 bg-slate-50 p-3 rounded-xl border border-slate-100 leading-relaxed">
-                      "{officer.quote}"
-                    </p>
-                  </div>
+                {/* Default Bottom Overlay (Visible before hover) */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent p-5 flex flex-col justify-end group-hover:opacity-0 transition-opacity duration-300 pointer-events-none">
+                  <span className="px-3 py-1 rounded-full bg-[#003883]/90 backdrop-blur-sm text-[#f6bf22] font-bold text-[10px] uppercase tracking-wider inline-block w-fit mb-2 border border-white/20 shadow-sm">
+                    {officer.role}
+                  </span>
+                  <h3 className="text-lg font-bold font-jakarta text-white leading-snug">
+                    {officer.name}
+                  </h3>
+                  <p className="text-xs text-blue-200 font-inter mt-0.5">{officer.classGrade}</p>
                 </div>
 
-                {officer.instagram && (
-                  <div className="px-4 py-3 bg-slate-50/70 border-t border-slate-100 text-center">
-                    <span className="text-[11px] font-mono text-[#003883] font-semibold">
-                      {officer.instagram}
+                {/* Hover Reveal Full Overlay (Visible on hover) */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#001c44]/95 via-[#003883]/90 to-black/60 p-6 flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[3px] transform translate-y-2 group-hover:translate-y-0">
+                  
+                  {/* Top Badge */}
+                  <div className="flex items-center justify-between">
+                    <span className="px-3 py-1 rounded-full bg-[#f6bf22] text-[#251a00] font-bold text-[10px] uppercase tracking-wider shadow-sm">
+                      {officer.role}
                     </span>
+                    <span className="text-[11px] font-mono text-blue-200">{officer.classGrade}</span>
                   </div>
-                )}
+
+                  {/* Middle & Bottom Description Content */}
+                  <div className="space-y-3">
+                    <div>
+                      <h3 className="text-xl font-bold font-jakarta text-white leading-tight">
+                        {officer.name}
+                      </h3>
+                      <span className="text-xs text-[#f6bf22] font-semibold block mt-0.5">
+                        Pengurus Inti OSIS 2025/2026
+                      </span>
+                    </div>
+
+                    {/* Description / Quote */}
+                    <div className="bg-white/10 backdrop-blur-md p-3.5 rounded-xl border border-white/15">
+                      <p className="text-xs font-inter text-blue-100 leading-relaxed italic">
+                        "{officer.quote}"
+                      </p>
+                    </div>
+
+                    {/* Instagram Handle */}
+                    {officer.instagram && (
+                      <div className="pt-1 flex items-center gap-2 text-xs font-mono text-[#f6bf22]">
+                        <span className="w-2 h-2 rounded-full bg-[#f6bf22] animate-pulse"></span>
+                        <span>{officer.instagram}</span>
+                      </div>
+                    )}
+                  </div>
+
+                </div>
               </div>
             ))}
           </div>
