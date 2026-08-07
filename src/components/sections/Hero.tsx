@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { useScrollReveal } from "@/lib/useScrollReveal";
 
+import Link from "next/link";
+
 function CountUp({ target, suffix = "", isVisible }: { target: number; suffix?: string; isVisible: boolean }) {
   const [count, setCount] = useState(0);
 
@@ -71,13 +73,19 @@ export default function Hero() {
         
         <div className="grid grid-cols-2 sm:flex gap-3 sm:gap-4 mt-2 w-full max-w-md md:max-w-none">
           {/* Primary CTA: Solid Accent Yellow */}
-          <button className="w-full sm:w-auto bg-tertiary-fixed-dim text-on-tertiary-fixed font-semibold text-[13.5px] sm:text-[15px] px-3 sm:px-8 py-3.5 sm:py-4 rounded-md hover:bg-[#e0ad1b] hover:-translate-y-0.5 active:scale-95 transition-all duration-300 shadow-sm hover:shadow-lg text-center truncate">
+          <Link
+            href="/pendaftaran"
+            className="w-full sm:w-auto bg-tertiary-fixed-dim text-on-tertiary-fixed font-bold text-[13.5px] sm:text-[15px] px-3 sm:px-8 py-3.5 sm:py-4 rounded-md hover:bg-[#e0ad1b] hover:-translate-y-0.5 active:scale-95 transition-all duration-300 shadow-sm hover:shadow-lg text-center truncate flex items-center justify-center gap-2"
+          >
             Info Pendaftaran
-          </button>
+          </Link>
           {/* Secondary CTA: Transparent Yellow Outline & Yellow Hover */}
-          <button className="w-full sm:w-auto border-2 border-tertiary-fixed-dim text-tertiary-fixed-dim font-semibold text-[13.5px] sm:text-[15px] px-3 sm:px-8 py-3.5 sm:py-4 rounded-md hover:bg-tertiary-fixed-dim hover:text-on-tertiary-fixed hover:-translate-y-0.5 active:scale-95 transition-all duration-300 text-center truncate">
+          <Link
+            href="/profil/sejarah"
+            className="w-full sm:w-auto border-2 border-tertiary-fixed-dim text-tertiary-fixed-dim font-bold text-[13.5px] sm:text-[15px] px-3 sm:px-8 py-3.5 sm:py-4 rounded-md hover:bg-tertiary-fixed-dim hover:text-on-tertiary-fixed hover:-translate-y-0.5 active:scale-95 transition-all duration-300 text-center truncate flex items-center justify-center gap-2"
+          >
             Jelajahi Sekolah
-          </button>
+          </Link>
         </div>
 
         {/* Simple Stats Display under buttons */}

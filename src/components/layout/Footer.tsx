@@ -71,7 +71,7 @@ export default function Footer() {
             <Link href="/akademik/mata-pelajaran" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Mata Pelajaran</Link>
             <Link href="/akademik/bimbingan-konseling" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Bimbingan Konseling</Link>
             <Link href="#" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Informasi Kelulusan</Link>
-            <Link href="#" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Daftar Ulang SPMB</Link>
+            <Link href="/pendaftaran" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Info Pendaftaran PPDB</Link>
           </div>
 
           {/* Kolom 4: Kontak Kami & Lokasi Peta */}

@@ -275,9 +275,15 @@ export default function Navbar() {
 
           {/* Desktop CTA Button */}
           <div className="hidden md:flex items-center gap-4">
-            <button className="bg-tertiary-fixed-dim text-on-tertiary-fixed font-semibold text-[13.5px] px-5 py-2.5 rounded-md hover:bg-[#e0ad1b] hover:-translate-y-0.5 active:scale-95 transition-all shadow-sm">
-              Layanan Pengaduan
-            </button>
+            <Link
+              href="/pendaftaran"
+              className="bg-tertiary-fixed-dim text-on-tertiary-fixed font-bold text-[13.5px] px-5 py-2.5 rounded-md hover:bg-[#e0ad1b] hover:-translate-y-0.5 active:scale-95 transition-all shadow-sm flex items-center gap-2"
+            >
+              <svg className="w-4 h-4 text-[#251a00]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+              </svg>
+              Info Pendaftaran
+            </Link>
           </div>
 
           {/* Mobile Hamburger Toggle Button */}
@@ -394,9 +400,16 @@ export default function Navbar() {
             </Link>
 
             <div className="pt-2 pb-1">
-              <button className="w-full bg-tertiary-fixed-dim text-on-tertiary-fixed font-semibold text-xs py-3 rounded-md hover:bg-[#e0ad1b] transition-all shadow-sm">
-                Layanan Pengaduan
-              </button>
+              <Link
+                href="/pendaftaran"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full bg-tertiary-fixed-dim text-on-tertiary-fixed font-bold text-xs py-3 rounded-md hover:bg-[#e0ad1b] transition-all shadow-sm flex items-center justify-center gap-2"
+              >
+                <svg className="w-4 h-4 text-[#251a00]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                </svg>
+                Info Pendaftaran PPDB
+              </Link>
             </div>
           </div>
         )}
