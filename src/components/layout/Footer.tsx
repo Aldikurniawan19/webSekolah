@@ -57,6 +57,8 @@ export default function Footer() {
             <h3 className="font-jakarta text-[16px] font-bold text-white mb-2">Tautan Cepat</h3>
             <Link href="/profil/sejarah" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Profil Sekolah</Link>
             <Link href="/#visi-misi" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Visi dan Misi</Link>
+            <Link href="/kesiswaan/osis" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">OSIS SMAN 2 Tebo</Link>
+            <Link href="/kesiswaan/ekstrakurikuler" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Ekstrakurikuler</Link>
             <Link href="#" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Program Unggulan</Link>
             <Link href="#" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Direktori Guru</Link>
             <Link href="#" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Prestasi Siswa</Link>
@@ -65,6 +67,9 @@ export default function Footer() {
           {/* Kolom 3: Layanan Akademik */}
           <div className="md:col-span-2 flex flex-col gap-3 md:mt-2">
             <h3 className="font-jakarta text-[16px] font-bold text-white mb-2">Layanan Akademik</h3>
+            <Link href="/akademik/kurikulum" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Kurikulum Kami</Link>
+            <Link href="/akademik/mata-pelajaran" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Mata Pelajaran</Link>
+            <Link href="/akademik/bimbingan-konseling" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Bimbingan Konseling</Link>
             <Link href="#" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Informasi Kelulusan</Link>
             <Link href="#" className="font-inter text-[14px] text-surface-variant/80 hover:text-sky-400 transition-colors">Daftar Ulang SPMB</Link>
           </div>

@@ -210,11 +210,19 @@ export default function Navbar() {
                     <span>Kurikulum Kami</span>
                     {pathname === "/akademik/kurikulum" && <span className="w-1.5 h-1.5 rounded-full bg-primary" />}
                   </Link>
-                  <Link href="#" className="px-4 py-2.5 font-inter text-[13.5px] text-body-gray hover:bg-gray-50 hover:text-primary transition-colors">
-                    Mata Pelajaran
+                  <Link
+                    href="/akademik/mata-pelajaran"
+                    className={getSubmenuLinkClass("/akademik/mata-pelajaran")}
+                  >
+                    <span>Mata Pelajaran</span>
+                    {pathname === "/akademik/mata-pelajaran" && <span className="w-1.5 h-1.5 rounded-full bg-primary" />}
                   </Link>
-                  <Link href="#" className="px-4 py-2.5 font-inter text-[13.5px] text-body-gray hover:bg-gray-50 hover:text-primary transition-colors">
-                    Bimbingan Konseling
+                  <Link
+                    href="/akademik/bimbingan-konseling"
+                    className={getSubmenuLinkClass("/akademik/bimbingan-konseling")}
+                  >
+                    <span>Bimbingan Konseling</span>
+                    {pathname === "/akademik/bimbingan-konseling" && <span className="w-1.5 h-1.5 rounded-full bg-primary" />}
                   </Link>
                 </div>
               </div>
@@ -238,11 +246,19 @@ export default function Navbar() {
 
               <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
                 <div className="w-52 bg-white shadow-[0_10px_30px_rgba(11,42,91,0.12)] rounded-xl border border-gray-100 overflow-hidden flex flex-col py-1.5">
-                  <Link href="#" className="px-4 py-2.5 font-inter text-[13.5px] text-body-gray hover:bg-gray-50 hover:text-primary transition-colors">
-                    OSIS
+                  <Link
+                    href="/kesiswaan/osis"
+                    className={getSubmenuLinkClass("/kesiswaan/osis")}
+                  >
+                    <span>OSIS</span>
+                    {pathname === "/kesiswaan/osis" && <span className="w-1.5 h-1.5 rounded-full bg-primary" />}
                   </Link>
-                  <Link href="#" className="px-4 py-2.5 font-inter text-[13.5px] text-body-gray hover:bg-gray-50 hover:text-primary transition-colors">
-                    Ekstrakulikuler
+                  <Link
+                    href="/kesiswaan/ekstrakurikuler"
+                    className={getSubmenuLinkClass("/kesiswaan/ekstrakurikuler")}
+                  >
+                    <span>Ekstrakurikuler</span>
+                    {pathname === "/kesiswaan/ekstrakurikuler" && <span className="w-1.5 h-1.5 rounded-full bg-primary" />}
                   </Link>
                 </div>
               </div>
@@ -340,8 +356,8 @@ export default function Navbar() {
               {openSubmenu === 'akademik' && (
                 <div className="pl-4 flex flex-col gap-2 py-2 bg-surface-container-low rounded-md mt-1">
                   <Link href="/akademik/kurikulum" onClick={() => setMobileMenuOpen(false)} className={`text-xs font-inter py-1 ${pathname === '/akademik/kurikulum' ? 'text-primary font-bold' : 'text-body-gray'}`}>Kurikulum Kami</Link>
-                  <Link href="#" onClick={() => setMobileMenuOpen(false)} className="text-xs font-inter text-body-gray hover:text-primary py-1">Mata Pelajaran</Link>
-                  <Link href="#" onClick={() => setMobileMenuOpen(false)} className="text-xs font-inter text-body-gray hover:text-primary py-1">Bimbingan Konseling</Link>
+                  <Link href="/akademik/mata-pelajaran" onClick={() => setMobileMenuOpen(false)} className={`text-xs font-inter py-1 ${pathname === '/akademik/mata-pelajaran' ? 'text-primary font-bold' : 'text-body-gray'}`}>Mata Pelajaran</Link>
+                  <Link href="/akademik/bimbingan-konseling" onClick={() => setMobileMenuOpen(false)} className={`text-xs font-inter py-1 ${pathname === '/akademik/bimbingan-konseling' ? 'text-primary font-bold' : 'text-body-gray'}`}>Bimbingan Konseling</Link>
                 </div>
               )}
             </div>
@@ -361,8 +377,8 @@ export default function Navbar() {
               </button>
               {openSubmenu === 'kesiswaan' && (
                 <div className="pl-4 flex flex-col gap-2 py-2 bg-surface-container-low rounded-md mt-1">
-                  <Link href="#" onClick={() => setMobileMenuOpen(false)} className="text-xs font-inter text-body-gray hover:text-primary py-1">OSIS</Link>
-                  <Link href="#" onClick={() => setMobileMenuOpen(false)} className="text-xs font-inter text-body-gray hover:text-primary py-1">Ekstrakulikuler</Link>
+                  <Link href="/kesiswaan/osis" onClick={() => setMobileMenuOpen(false)} className={`text-xs font-inter py-1 ${pathname === '/kesiswaan/osis' ? 'text-primary font-bold' : 'text-body-gray'}`}>OSIS</Link>
+                  <Link href="/kesiswaan/ekstrakurikuler" onClick={() => setMobileMenuOpen(false)} className={`text-xs font-inter py-1 ${pathname === '/kesiswaan/ekstrakurikuler' ? 'text-primary font-bold' : 'text-body-gray'}`}>Ekstrakurikuler</Link>
                 </div>
               )}
             </div>
