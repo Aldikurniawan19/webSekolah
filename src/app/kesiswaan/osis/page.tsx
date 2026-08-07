@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useScrollReveal } from "@/lib/useScrollReveal";
 import {
@@ -209,6 +209,112 @@ const flagshipEvents = [
   },
 ];
 
+function OfficerCard({ officer }: { officer: ExecutiveOfficer }) {
+  const [isActiveOnMobile, setIsActiveOnMobile] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Set up IntersectionObserver to automatically trigger card reveal on mobile when scrolled into center viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (window.innerWidth < 768) {
+            setIsActiveOnMobile(entry.isIntersecting);
+          }
+        });
+      },
+      {
+        threshold: 0.6, // Card is 60% in view on mobile screen
+        rootMargin: "-5% 0px -5% 0px",
+      }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={cardRef}
+      onClick={() => setIsActiveOnMobile((prev) => !prev)}
+      className="group relative h-[380px] sm:h-[420px] rounded-2xl overflow-hidden shadow-md border border-slate-100 hover:shadow-2xl transition-all duration-500 cursor-pointer"
+    >
+      {/* Full-Bleed Background Photo */}
+      <img
+        src={officer.avatar}
+        alt={officer.name}
+        className={`w-full h-full object-cover object-center transition-transform duration-700 ease-out ${
+          isActiveOnMobile ? "scale-110" : "group-hover:scale-110"
+        }`}
+      />
+
+      {/* Default Bottom Overlay (Visible before hover/scroll active) */}
+      <div
+        className={`absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent p-5 flex flex-col justify-end transition-opacity duration-300 pointer-events-none ${
+          isActiveOnMobile ? "opacity-0" : "group-hover:opacity-0"
+        }`}
+      >
+        <span className="px-3 py-1 rounded-full bg-[#003883]/90 backdrop-blur-sm text-[#f6bf22] font-bold text-[10px] uppercase tracking-wider inline-block w-fit mb-2 border border-white/20 shadow-sm">
+          {officer.role}
+        </span>
+        <h3 className="text-lg font-bold font-jakarta text-white leading-snug">
+          {officer.name}
+        </h3>
+        <p className="text-xs text-blue-200 font-inter mt-0.5">{officer.classGrade}</p>
+      </div>
+
+      {/* Hover & Mobile Scroll-Active Full Overlay */}
+      <div
+        className={`absolute inset-0 bg-gradient-to-t from-[#001c44]/95 via-[#003883]/90 to-black/60 p-6 flex flex-col justify-between transition-all duration-500 backdrop-blur-[3px] transform ${
+          isActiveOnMobile
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+        }`}
+      >
+        {/* Top Badge */}
+        <div className="flex items-center justify-between">
+          <span className="px-3 py-1 rounded-full bg-[#f6bf22] text-[#251a00] font-bold text-[10px] uppercase tracking-wider shadow-sm">
+            {officer.role}
+          </span>
+          <span className="text-[11px] font-mono text-blue-200">{officer.classGrade}</span>
+        </div>
+
+        {/* Middle & Bottom Description Content */}
+        <div className="space-y-3">
+          <div>
+            <h3 className="text-xl font-bold font-jakarta text-white leading-tight">
+              {officer.name}
+            </h3>
+            <span className="text-xs text-[#f6bf22] font-semibold block mt-0.5">
+              Pengurus Inti OSIS 2025/2026
+            </span>
+          </div>
+
+          {/* Description / Quote */}
+          <div className="bg-white/10 backdrop-blur-md p-3.5 rounded-xl border border-white/15">
+            <p className="text-xs font-inter text-blue-100 leading-relaxed italic">
+              "{officer.quote}"
+            </p>
+          </div>
+
+          {/* Instagram Handle */}
+          {officer.instagram && (
+            <div className="pt-1 flex items-center gap-2 text-xs font-mono text-[#f6bf22]">
+              <span className="w-2 h-2 rounded-full bg-[#f6bf22] animate-pulse"></span>
+              <span>{officer.instagram}</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function OsisPage() {
   const [headerRef, , headerStyle] = useScrollReveal({ variant: "fade-up", duration: 700 });
   const [officersRef, , officersStyle] = useScrollReveal({ variant: "fade-up", duration: 700, delay: 100 });
@@ -309,68 +415,7 @@ export default function OsisPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {executiveOfficers.map((officer, idx) => (
-              <div
-                key={idx}
-                className="group relative h-[380px] sm:h-[420px] rounded-2xl overflow-hidden shadow-md border border-slate-100 hover:shadow-2xl transition-all duration-500"
-              >
-                {/* Full-Bleed Background Photo */}
-                <img
-                  src={officer.avatar}
-                  alt={officer.name}
-                  className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out"
-                />
-
-                {/* Default Bottom Overlay (Visible before hover) */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent p-5 flex flex-col justify-end group-hover:opacity-0 transition-opacity duration-300 pointer-events-none">
-                  <span className="px-3 py-1 rounded-full bg-[#003883]/90 backdrop-blur-sm text-[#f6bf22] font-bold text-[10px] uppercase tracking-wider inline-block w-fit mb-2 border border-white/20 shadow-sm">
-                    {officer.role}
-                  </span>
-                  <h3 className="text-lg font-bold font-jakarta text-white leading-snug">
-                    {officer.name}
-                  </h3>
-                  <p className="text-xs text-blue-200 font-inter mt-0.5">{officer.classGrade}</p>
-                </div>
-
-                {/* Hover Reveal Full Overlay (Visible on hover) */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#001c44]/95 via-[#003883]/90 to-black/60 p-6 flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[3px] transform translate-y-2 group-hover:translate-y-0">
-                  
-                  {/* Top Badge */}
-                  <div className="flex items-center justify-between">
-                    <span className="px-3 py-1 rounded-full bg-[#f6bf22] text-[#251a00] font-bold text-[10px] uppercase tracking-wider shadow-sm">
-                      {officer.role}
-                    </span>
-                    <span className="text-[11px] font-mono text-blue-200">{officer.classGrade}</span>
-                  </div>
-
-                  {/* Middle & Bottom Description Content */}
-                  <div className="space-y-3">
-                    <div>
-                      <h3 className="text-xl font-bold font-jakarta text-white leading-tight">
-                        {officer.name}
-                      </h3>
-                      <span className="text-xs text-[#f6bf22] font-semibold block mt-0.5">
-                        Pengurus Inti OSIS 2025/2026
-                      </span>
-                    </div>
-
-                    {/* Description / Quote */}
-                    <div className="bg-white/10 backdrop-blur-md p-3.5 rounded-xl border border-white/15">
-                      <p className="text-xs font-inter text-blue-100 leading-relaxed italic">
-                        "{officer.quote}"
-                      </p>
-                    </div>
-
-                    {/* Instagram Handle */}
-                    {officer.instagram && (
-                      <div className="pt-1 flex items-center gap-2 text-xs font-mono text-[#f6bf22]">
-                        <span className="w-2 h-2 rounded-full bg-[#f6bf22] animate-pulse"></span>
-                        <span>{officer.instagram}</span>
-                      </div>
-                    )}
-                  </div>
-
-                </div>
-              </div>
+              <OfficerCard key={idx} officer={officer} />
             ))}
           </div>
         </div>
