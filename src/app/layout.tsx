@@ -3,6 +3,7 @@ import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta" });
@@ -20,9 +21,11 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={`${inter.variable} ${jakarta.variable} bg-surface text-on-surface antialiased font-sans flex flex-col min-h-screen overflow-x-hidden`}>
-        <Navbar />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        <SmoothScrollProvider>
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </SmoothScrollProvider>
       </body>
     </html>
   );
